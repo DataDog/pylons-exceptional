@@ -17,7 +17,7 @@ try:
 except ImportError:
     import simplejson as json
 
-__version__ = '0.2.1'
+__version__ = '0.2.2'
 
 EXCEPTIONAL_PROTOCOL_VERSION = 6
 EXCEPTIONAL_API_ENDPOINT = "http://api.getexceptional.com/api/errors"
