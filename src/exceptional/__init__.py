@@ -103,8 +103,11 @@ class ExceptionalMiddleware(object):
                 error = "%s\nthen submission to getexceptional failed:\n%s" % (error, error2)
             response.status_int = 500
 
-            if not self.discreet:
+            if self.discreet:
+                response.body = "An error has occured."
+            else:
                 response.body = "An error has occured; trace follows.\n%s" % error
+
 
         return response(environ, start_response)
 
