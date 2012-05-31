@@ -49,9 +49,10 @@ class ExceptionalMiddleware(object):
     add `exceptional.api_key` to your pylons settings.
     """
 
-    def __init__(self, app, api_key):
+    def __init__(self, app, api_key, discreet=False):
         self.app = app
         self.active = False
+        self.discreet = discreet
 
         try:
             self.api_key = api_key
@@ -101,7 +102,9 @@ class ExceptionalMiddleware(object):
                 error2 = traceback.format_exc()
                 error = "%s\nthen submission to getexceptional failed:\n%s" % (error, error2)
             response.status_int = 500
-            response.body = "An error has occured; trace follows.\n%s" % error
+
+            if not self.discreet:
+                response.body = "An error has occured; trace follows.\n%s" % error
 
         return response(environ, start_response)
 
